@@ -1,0 +1,160 @@
+class Student
+{
+public:
+	void print();
+	bool isStudent(char name[80]);
+	bool Student::isHomework(char homework[80]);
+	void num(int n,char name[80]);
+
+  
+private:
+    int record;
+	char id;
+	char studentId;
+    int numberofhomework;
+	char name[80];
+};
+
+void Student::print()
+{
+	cout << "-------MAIN MENU--------"<< endl;
+	cout << "1.print all homeworks." << endl;
+	cout << "2.send a homework file." << endl;
+	cout << "3.view grade." <<endl;
+	cout << "4.quit." << endl;
+	cout << ">.";
+}
+
+bool Student::isStudent(char name[80]) 
+{
+	string _name(name);
+	ifstream input;
+	input.open("d:\\example\\student1.txt");
+	char studentName[80];
+	while (!input.eof())  
+	{	
+    	input.getline(studentName, 80);
+		string _studentName(studentName);
+
+		if (_name == _studentName)
+			return true;		
+	}
+	input.close();	
+	cout << "No Such Student!!" << endl; 
+	return 0;
+}
+
+bool Student::isHomework(char homeworkName[80])
+{
+		string _homeworkName(homeworkName);
+	    ifstream input;
+	    input.open("d:\\example\\homework1.txt");
+	    char homeworkname[80];	
+	    while (!input.eof())  
+		{
+    	    input.getline(homeworkname, 80);
+		    string _homeworkname(homeworkname);
+    	    if (_homeworkName == _homeworkname)
+				return true;
+		}
+    	input.close();	
+	    cout << "No Such homework!!" << endl; 
+		return false;
+}
+
+
+void Student::num(int n,char name[80])
+{
+	if(n == 1)
+	{
+		ifstream input;
+		cout << "-----ALL HOMEWORK------" <<endl;
+		input.open("d:\\example\\homework1.txt");
+	    char homework[80];
+
+		while(!input.eof())
+		{
+			input.getline(homework,80,'#');
+			cout << homework << endl;
+		}
+		input.close();	
+		cout << "-----------------------" << endl;
+		cout << endl;
+		print();
+	}
+	if(n == 2)
+	{
+		cout << "homework's name: ";
+		char homeworkName[80];
+		cin >> homeworkName;
+		cout << "Source file(zhe place where your homework is): ";
+		char inputFileName[80];
+		cin >> inputFileName;
+		cout << "target file(student1's homework1 named 11.txt "<<endl ;
+		cout << "              and send to zhe target place): " ;
+		char outputFileName[80];
+		cin >> outputFileName;
+		if(isHomework(homeworkName))
+		{
+			ifstream input;
+			ofstream output;
+			input.open(inputFileName);
+			output.open(outputFileName);
+			while(!input.eof())
+			{
+				output.put(input.get());
+			}
+			input.close();
+			output.close();
+		}
+		cout << endl;
+		print();
+	}
+	if( n == 3)
+	{
+		cout << "---------GRADE---------" << endl;
+		ifstream input;
+
+        input.open("d:\\example\\grades.txt");
+
+        char firstName[80];
+        char lastName[80];
+        int score;
+        string _name(name);
+        while (!input.eof()) // Continue if not end of file
+		{
+            input >> firstName >> lastName >> score;
+		        string _firstName(firstName);
+		         if (_name == _firstName)
+		         cout << " " << lastName
+                    << " " << score << endl;
+	}
+	input.close();	
+		cout << "-----------------------" << endl;
+		cout << endl;
+		print();
+	}
+}
+int main()
+{	
+	cout << "Plase input your name: ";
+	char name[80];
+	cin >> name ;
+	Student sistudent;
+    student.isStudent(name);
+	if(student.isStudent(name))
+	{
+
+        student.print();
+	    int n;		
+	    cin >> n;
+	    while(n < 4)
+		{			
+	        student.num(n,name);
+		    cin >> n;
+		}
+	}
+	
+
+	return 0;
+}
